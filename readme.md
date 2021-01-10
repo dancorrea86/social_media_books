@@ -1,11 +1,7 @@
-### Solar System Exploration, 1950s – 1960s
+## Task of project
 
-- [ ] Mercury
-- [x] Venus
-- [x] Earth (Orbit/Moon)
-- [x] Mars
-- [ ] Jupiter
-- [ ] Saturn
-- [ ] Uranus
-- [ ] Neptune
-- [ ] Comet Haley
+- [ ] Create a virtualenv with the modules
+- [ ] Starter a flask server
+- [ ] Create a basic template for the page
+- [ ] Create a templete for the form
+- [ ] Create a database using the flask_sqlalchemy
