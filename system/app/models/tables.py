@@ -1,20 +1,32 @@
 from app import app
 from app import db
 
+subs = db.Table('subs', 
+    db.Column('user_id', db.Integer, db.ForeignKey('user.user_id')),
+    db.Column('book_id', db.Integer, db.ForeignKey('book.book_id'))
+)
+
 class User(db.Model):
-    __tablename__ = "users"
+    # __tablename__ = "users"
 
-    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True)
-    password = db.Column(db.String)
-    name = db.Column(db.String)
-    email = db.Column(db.String(120), unique=True)
+    readings = db.relationship('Book', secondary=subs, backref=db.backref('readers', lazy='dynamic'))
 
-    def __init__(self, username, password, name, email):
+    def __init__(self, username):
         self.username = username
-        self.password = password
-        self.name = name
-        self.email = email
 
     def __repr__(self):
         return '<User %r>' % self.username
+
+class Book(db.Model):
+    # __tablename__ = "books"
+
+    book_id = db.Column(db.Integer, primary_key=True)
+    book_name = db.Column(db.String, unique=True)
+
+    def __init__(self, book_name):
+        self.book_name = book_name
+
+    def __repr__(self):
+        return '<User %r>' % self.book_name
