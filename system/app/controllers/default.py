@@ -7,7 +7,7 @@ from app.models.tables import User, Book
 @app.route("/")
 @app.route("/home")
 def index():
-    return "Bem Vindo ao Projeto"
+    return "<h1>Bem Vindo ao Projeto</h1>"
 
 
 @app.route("/newuser/<name>")
@@ -31,3 +31,17 @@ def alter_user(id, name):
     db.session.add(user)
     db.session.commit()
     return "<h1>Usuário alterado com sucesso</h1>"
+
+@app.route("/readebook/<iduser>/<idbook>")
+def reade(iduser, idbook):
+    user = User.query.get(iduser)
+    book = Book.query.get(idbook)
+    book.readers.append(user)
+    db.session.commit()
+    return "<h1>Livro lido</h1>"
+
+@app.route("/showreads/<iduser>")
+def showreaders(iduser):
+    user = User.query.get(iduser)
+    show = user.readers
+    return "<h1>Livro lido {show}</h1>"
