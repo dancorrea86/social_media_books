@@ -43,5 +43,5 @@ def reade(iduser, idbook):
 @app.route("/showreads/<iduser>")
 def showreaders(iduser):
     user = User.query.get(iduser)
-    show = user.readers
-    return "<h1>Livro lido {show}</h1>"
+    show = user.readings
+    return f'<h1>Livro lido {user.username}</h1>'
