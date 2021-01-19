@@ -42,6 +42,12 @@ def reade(iduser, idbook):
 
 @app.route("/showreads/<iduser>")
 def showreaders(iduser):
-    user = User.query.get(iduser)
-    show = user.readings
-    return f'<h1>Livro lido {user.username}</h1>'
+    book = Book.query.get(iduser)
+    print(book.readers)
+    print (book)
+    show = book.readers
+    print (show)
+    lista = []
+    for user in book.readers():
+        lista.append(user.username)
+    return f'<h1>Livro lido {lista}</h1>'
