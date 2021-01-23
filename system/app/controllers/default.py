@@ -44,4 +44,4 @@ def reade(iduser, idbook):
 def showreaders(iduser):
     print(User.query.with_parent(1))
 
-    return f'<h1>Livro lido44</h1>'
+    return f'<h1>Livro lido</h1>'
