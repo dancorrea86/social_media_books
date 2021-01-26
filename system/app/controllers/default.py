@@ -2,6 +2,7 @@ from app import app
 from app import db
 from flask import Flask
 from app.models.tables import User, Book
+from flask import jsonify
 # from app import tables
 
 @app.route("/")
@@ -25,12 +26,20 @@ def new_book(bookname):
     return "<h1>Livro cadastrado com sucesso</h1>"
 
 @app.route("/alteruser/<id>/<name>")
-def alter_user(id, name):
+def alter_book(id, name):
     user = User.query.get(id)
     user.username = name
     db.session.add(user)
     db.session.commit()
     return "<h1>Usuário alterado com sucesso</h1>"
+
+@app.route("/alterbook/<id>/<name>")
+def alter_user(id, name):
+    book = Book.query.get(id)
+    book.book_name = name
+    db.session.add(book)
+    db.session.commit()
+    return "<h1>Livro alterado com sucesso</h1>"
 
 @app.route("/readebook/<iduser>/<idbook>")
 def reade(iduser, idbook):
@@ -42,6 +51,8 @@ def reade(iduser, idbook):
 
 @app.route("/showreads/<iduser>")
 def showreaders(iduser):
-    print(User.query.with_parent(1))
-
-    return f'<h1>Livro lido</h1>'
+    books = Book.query.filter(User.readings).all()
+    listOfBooks = []
+    for book in books:
+        listOfBooks.append(book.book_name)
+    return jsonify(listOfBooks)
