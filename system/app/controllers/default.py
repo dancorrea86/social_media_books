@@ -62,7 +62,7 @@ def reade(iduser, idbook):
     db.session.commit()
     return "<h1>Livro lido</h1>"
 
-@app.route("/showreads/<iduser>")
+@app.route("/showreads")
 def showreaders(iduser):
     books = Book.query.filter(User.readings).all()
     listOfBooks = []

@@ -13,3 +13,7 @@ class AlterUser(FlaskForm):
     user_id = IntegerField('User_id')
     username = StringField('Username')
     submit = SubmitField('Submit')
+
+class SearchUser(FlaskForm):
+    user_id = IntegerField('User_id')
+    submit = SubmitField('Submit')
