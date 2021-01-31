@@ -17,3 +17,7 @@ class AlterUser(FlaskForm):
 class SearchUser(FlaskForm):
     user_id = IntegerField('User_id')
     submit = SubmitField('Submit')
+
+class Showreader(FlaskForm):
+    user_id = IntegerField('User_id')
+    submit = SubmitField('Submit')

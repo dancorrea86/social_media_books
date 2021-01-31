@@ -62,13 +62,28 @@ def reade(iduser, idbook):
     db.session.commit()
     return "<h1>Livro lido</h1>"
 
-@app.route("/showreads")
-def showreaders(iduser):
-    books = Book.query.filter(User.readings).all()
-    listOfBooks = []
-    for book in books:
-        listOfBooks.append(book.book_name)
-    return jsonify(listOfBooks)
+@app.route('/page/<string:user>')
+def page(user):
+    print(user)
+    user = User.query.filter_by(username=user).first()
+    print (user)
+    if user:
+        books = user.readings
+        listOfBooks = []
+        for book in books:
+            listOfBooks.append(book.book_name)
+        return jsonify(listOfBooks)
+    
+    return "Usuário invalido"
+
+# @app.route('/page/<string:user>')
+# def page(user):
+#     return 'User: ' + user
+
+@app.route("/showusers")
+def showreaders():
+    users = User.query.all()
+    return render_template('userResults.html', users=users)
 
 
 
@@ -97,3 +112,11 @@ def showreaders(iduser):
 #     db.session.add(user)
 #     db.session.commit()
 #     return "<h1>Usuário alterado com sucesso</h1>"
+
+@app.route("/showreads")
+def showreads():
+    books = Book.query.filter(User.readings).all()
+    listOfBooks = []
+    for book in books:
+        listOfBooks.append(book.book_name)
+    return jsonify(listOfBooks)
