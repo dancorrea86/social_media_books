@@ -2,6 +2,6 @@
 
 {% block content %}
     {% for user in users %}
-    <li><a href="{{ url_for('page', user=user.username ) }}">{{ user.username }}</a></li>
+    <li><a href="{{ url_for('showreads', user=user.username ) }}">{{ user.username }}</a></li>
     {% endfor %}
 {% endblock %}
