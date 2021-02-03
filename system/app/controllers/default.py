@@ -3,13 +3,13 @@ from app import db
 from flask import Flask
 from app.models.tables import User, Book
 from flask import jsonify, render_template, request
-from app.forms import SignUpForm, BookRegister, AlterUser
+from app.forms import SignUpForm, BookRegister, AlterUser, AlterBook
 # from app import tables
 
 @app.route("/")
 @app.route("/home")
 def index():
-    return render_template('base.html')
+    return render_template('home.html')
 
 @app.route('/newuser', methods=['GET', 'POST'])
 def new_user():
@@ -19,7 +19,7 @@ def new_user():
         user = User(username=result['username'])
         db.session.add(user)
         db.session.commit()
-        return render_template('showResult.html', operation="Usuário", result=result)
+        return render_template('showResult.html', operation="Usuário cadastrado", result=result)
     return render_template('userRegister.html', form=form)
 
 @app.route("/newbook", methods=['GET', 'POST'])
@@ -30,7 +30,7 @@ def new_book():
         book = Book(book_name=result['bookname'])
         db.session.add(book)
         db.session.commit()
-        return render_template('showResult.html', operation="Livro", result=result)
+        return render_template('showResult.html', operation="Livro cadastrado", result=result)
     return render_template('bookRegister.html', form=form)
 
 @app.route("/alteruser", methods=['GET', 'POST'])
@@ -45,14 +45,25 @@ def alter_user():
         return render_template('showResult.html', operation="Usuário alterado", result=result)
     return render_template('alterUser.html', form=form)
 
+@app.route("/alterbook", methods=['GET', 'POST'])
+def alter_book():
+    form = AlterBook()
+    if form.is_submitted():
+        result = request.form
+        book = Book.query.get(result['book_id'])
+        book.book_name = result['book_name']
+        db.session.add(book)
+        db.session.commit()
+        return render_template('showResult.html', operation="Livro alterado", result=result)
+    return render_template('alterbook.html', form=form)
 
-@app.route("/alterbook/<id>/<name>")
-def alter_book(id, name):
-    book = Book.query.get(id)
-    book.book_name = name
-    db.session.add(book)
-    db.session.commit()
-    return "<h1>Livro alterado com sucesso</h1>"
+# @app.route("/alterbook/<id>/<name>")
+# def alter_book(id, name):
+#     book = Book.query.get(id)
+#     book.book_name = name
+#     db.session.add(book)
+#     db.session.commit()
+#     return "<h1>Livro alterado com sucesso</h1>"
 
 @app.route("/readebook/<iduser>/<idbook>")
 def reade(iduser, idbook):

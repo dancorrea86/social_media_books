@@ -14,6 +14,11 @@ class AlterUser(FlaskForm):
     username = StringField('Username')
     submit = SubmitField('Submit')
 
+class AlterBook(FlaskForm):
+    book_id = IntegerField('Book_id')
+    book_name = StringField('Book_name')
+    submit = SubmitField('Submit')
+
 class SearchUser(FlaskForm):
     user_id = IntegerField('User_id')
     submit = SubmitField('Submit')
