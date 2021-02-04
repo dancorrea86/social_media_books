@@ -9,6 +9,7 @@ readings = db.Table('readings',
 class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String)
+    email = db.Column(db.String, unique=True, nullable=True)
     readings = db.relationship('Book', secondary=readings, backref=db.backref('user', lazy='dynamic'))
 
 class Book(db.Model):

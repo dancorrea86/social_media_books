@@ -16,7 +16,7 @@ def new_user():
     form = SignUpForm()
     if form.is_submitted():
         result = request.form
-        user = User(username=result['username'])
+        user = User(username=result['username'], email=result['email'])
         db.session.add(user)
         db.session.commit()
         return render_template('showResult.html', operation="Usuário cadastrado", result=result)
@@ -40,6 +40,7 @@ def alter_user():
         result = request.form
         user = User.query.get(result['user_id'])
         user.username = result['username']
+        user.email = result['email']
         db.session.add(user)
         db.session.commit()
         return render_template('showResult.html', operation="Usuário alterado", result=result)

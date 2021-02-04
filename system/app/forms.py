@@ -3,6 +3,7 @@ from wtforms import StringField, PasswordField, SubmitField, IntegerField
 
 class SignUpForm(FlaskForm):
     username = StringField('Username')
+    email = StringField('Email')
     submit = SubmitField('Submit')
 
 class BookRegister(FlaskForm):
