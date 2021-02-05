@@ -21,7 +21,7 @@ class AlterBook(FlaskForm):
     submit = SubmitField('Submit')
 
 class SearchUser(FlaskForm):
-    user_id = IntegerField('User_id')
+    user_id = IntegerField('Usger_id')
     submit = SubmitField('Submit')
 
 class Showreader(FlaskForm):
